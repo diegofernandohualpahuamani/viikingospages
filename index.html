@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Club Valhalla: el club de los vikingos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#efe3c6;--panel:#f7edd5;--text:#1d1812;--muted:#5b4e3b;--red:#7a1a1d;--gold:#8a6420;--line:#b99d62;--hero1:#0b141c;--hero2:#1b2f3d;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1822;--panel:#15232f;--text:#ece0c3;--muted:#b6a98a;--red:#d9565a;--gold:#d3a85c;--line:#3a4a55;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d1822;--panel:#15232f;--text:#ece0c3;--muted:#b6a98a;--red:#d9565a;--gold:#d3a85c;--line:#3a4a55;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font:400 1.15rem/1.65 "EB Garamond",Georgia,serif}
+h1,h2,h3{font-family:Cinzel,"Trajan Pro",Georgia,serif;margin:0;line-height:1.15}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 1.25rem}
+/* HERO */
+.hero{background:linear-gradient(180deg,var(--hero1) 0%,var(--hero2) 62%,#b4733a 100%);color:#f1e6c8;text-align:center;padding:4.5rem 1rem 0;position:relative;overflow:hidden}
+.hero p.sub{font-style:italic;font-size:1.3rem;max-width:34rem;margin:1.2rem auto 0;color:#dccfa9}
+.helm{width:150px;height:96px;margin:0 auto 1rem;display:block}
+.hero h1{font-weight:900;font-size:clamp(2.3rem,9vw,5.6rem);letter-spacing:.14em;text-shadow:0 3px 0 #000a,0 0 40px #c39a5255;color:#f3e4b8;padding-left:.14em}
+.hero h1 span{display:block}
+.hero .rune{letter-spacing:.5em;color:#c39a52;font-size:1.1rem;margin-top:1rem}
+.ship{display:block;width:min(560px,92%);margin:1.5rem auto 0}
+.wave{height:34px;background:var(--bg);-webkit-mask:radial-gradient(circle 17px at 17px 0,#0000 98%,#000) 0 0/34px 34px repeat-x;mask:radial-gradient(circle 17px at 17px 0,#0000 98%,#000) 0 0/34px 34px repeat-x;margin-top:-1px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:2px solid var(--line)}
+nav .wrap{display:flex;gap:.3rem 1.2rem;flex-wrap:wrap;justify-content:center;padding-top:.5rem;padding-bottom:.5rem}
+nav a{font-family:Cinzel,serif;font-size:.95rem;text-decoration:none;padding:.15rem .2rem;color:var(--text)}
+nav a:hover{color:var(--red)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--panel);z-index:10}
+section{padding:3.5rem 0 1rem}
+h2{font-size:clamp(1.7rem,4.5vw,2.5rem);color:var(--red);margin-bottom:.4rem}
+h2::after{content:"";display:block;height:6px;width:min(220px,60%);margin-top:.6rem;background:repeating-linear-gradient(135deg,var(--gold) 0 8px,transparent 8px 14px)}
+.lead{max-width:44rem;color:var(--muted)}
+.panel{background:var(--panel);border:2px solid var(--line);border-radius:3px;padding:1.4rem 1.5rem;position:relative}
+.panel::before{content:"";position:absolute;left:-2px;top:-2px;bottom:-2px;width:6px;background:var(--red)}
+.grid{display:grid;gap:1.2rem;margin-top:1.5rem}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.panel h3{font-size:1.25rem;margin-bottom:.6rem}
+.panel ul{margin:0;padding-left:1.2rem}
+.panel li{margin:.3rem 0}
+.mito h3{color:var(--red)}.real h3{color:var(--gold)}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:1.5rem;border:2px solid var(--line)}
+.vs>div{padding:1.4rem 1.5rem;background:var(--panel)}
+.vs>div:first-child{border-right:4px double var(--line)}
+@media(max-width:640px){.vs{grid-template-columns:1fr}.vs>div:first-child{border-right:0;border-bottom:4px double var(--line)}}
+.quote{font-size:1.5rem;font-style:italic;border-left:6px solid var(--red);padding:.4rem 0 .4rem 1.2rem;margin:1.5rem 0 0;max-width:40rem}
+/* flip cards */
+.card{all:unset;box-sizing:border-box;display:block;cursor:pointer;background:var(--panel);border:2px solid var(--line);padding:1.2rem 1.3rem;min-height:11rem;position:relative}
+.card:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.card .t{font-family:Cinzel,serif;font-weight:700;font-size:1.05rem;color:var(--red);display:block;margin-bottom:.5rem}
+.card .back{display:none}
+.card[aria-pressed="true"]{border-color:var(--gold);background:color-mix(in srgb,var(--panel) 85%,var(--gold))}
+.card[aria-pressed="true"] .front{display:none}
+.card[aria-pressed="true"] .back{display:block}
+.card[aria-pressed="true"] .t{color:var(--gold)}
+.hint{font-size:.95rem;color:var(--muted);font-style:italic}
+/* timeline */
+.tl{list-style:none;margin:1.5rem 0 0;padding:0 0 0 1.6rem;border-left:4px solid var(--red)}
+.tl li{position:relative;margin:0 0 1.2rem;padding-left:.4rem}
+.tl li::before{content:"";position:absolute;left:-2.15rem;top:.45rem;width:14px;height:14px;background:var(--gold);transform:rotate(45deg);border:2px solid var(--bg)}
+.tl b{font-family:Cinzel,serif;color:var(--red);margin-right:.5rem}
+/* table */
+table{width:100%;border-collapse:collapse;margin-top:1.2rem;background:var(--panel)}
+th,td{padding:.7rem 1rem;border-bottom:1px solid var(--line);text-align:left}
+th{font-family:Cinzel,serif;color:var(--red)}
+td:last-child,th:last-child{text-align:right;white-space:nowrap}
+tr.total td{font-weight:700;background:var(--red);color:#fff6dd;border:0}
+.kpi b{font-family:Cinzel,serif;font-size:1.6rem;color:var(--red);display:block}
+footer{margin-top:4rem;background:var(--hero1);color:#e8dcbd;text-align:center;padding:3rem 1rem 3.5rem}
+footer h2{color:#f3e4b8;font-size:2rem}footer h2::after{margin:.6rem auto 0}
+footer ul{list-style:none;padding:0;margin:1.2rem 0 0}
+footer small{display:block;margin-top:1.5rem;color:#a99d80;font-size:.9rem}
+.theme{position:fixed;right:.8rem;bottom:calc(.8rem + env(safe-area-inset-bottom,0px));z-index:6;font:700 .9rem Cinzel,serif;background:var(--red);color:#fff6dd;border:2px solid var(--gold);padding:.45rem .8rem;cursor:pointer}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.fig{display:grid;grid-template-columns:minmax(200px,300px) 1fr;gap:1.5rem;align-items:center;margin-top:1.5rem}@media(max-width:700px){.fig{grid-template-columns:1fr}}.fig svg{width:100%;max-height:440px}.pill{display:inline-block;background:var(--red);color:#fff6dd;font-family:Cinzel,serif;padding:.1rem .6rem;margin:.15rem .2rem .15rem 0;font-size:.95rem}.ship{animation:rock 6s ease-in-out infinite;transform-origin:50% 92%}@keyframes rock{50%{transform:rotate(1.6deg) translateY(4px)}0%,100%{transform:rotate(-1.6deg)}}@media(prefers-reduced-motion:reduce){.ship{animation:none}}.opt{all:unset;box-sizing:border-box;display:block;width:100%;cursor:pointer;margin:.5rem 0;padding:.7rem 1rem;border:2px solid var(--line);background:var(--bg)}.opt:hover,.opt:focus-visible{border-color:var(--gold);outline:0}.res h3{font-size:1.7rem;color:var(--red)}.bar{height:8px;background:var(--line);margin-bottom:1rem}.bar i{display:block;height:100%;background:var(--red);transition:width .4s}.cta{display:inline-block;margin-top:1.4rem;background:var(--red);color:#fff6dd;border:2px solid #c39a52;font-family:Cinzel,serif;font-weight:700;padding:.6rem 1.4rem;text-decoration:none}.cta:hover{background:#9a2327}.inp{display:block;width:100%;margin:.3rem 0 1rem;padding:.7rem .9rem;font:inherit;color:var(--text);background:var(--bg);border:2px solid var(--line)}label{font-family:Cinzel,serif;font-size:.95rem}button.cta{cursor:pointer}.id{border:3px double var(--gold);padding:1.2rem;text-align:center;background:linear-gradient(135deg,var(--panel),var(--bg))}.id .n{font-family:Cinzel,serif;font-weight:900;font-size:1.7rem;color:var(--red);overflow-wrap:anywhere}.id .r{font-size:1.5rem;letter-spacing:.2em;color:var(--gold);overflow-wrap:anywhere}.wall{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}.wall span{border:1px solid var(--line);padding:.1rem .6rem;background:var(--bg)}#mitos th{text-align:left!important}.qi{position:absolute;opacity:0;pointer-events:none}.qzf{position:relative}.res{display:none;margin:1rem 0;padding:1rem;border:3px double var(--gold)}.rst{text-align:center;font-family:Cinzel,serif;width:auto;display:inline-block}#a0:checked~.b0 [for=a0]{border-color:var(--gold);background:var(--panel);font-weight:700}#a0:focus-visible~.b0 [for=a0]{outline:3px solid var(--gold);outline-offset:2px}#a1:checked~.b0 [for=a1]{border-color:var(--gold);background:var(--panel);font-weight:700}#a1:focus-visible~.b0 [for=a1]{outline:3px solid var(--gold);outline-offset:2px}#a2:checked~.b0 [for=a2]{border-color:var(--gold);background:var(--panel);font-weight:700}#a2:focus-visible~.b0 [for=a2]{outline:3px solid var(--gold);outline-offset:2px}#a3:checked~.b0 [for=a3]{border-color:var(--gold);background:var(--panel);font-weight:700}#a3:focus-visible~.b0 [for=a3]{outline:3px solid var(--gold);outline-offset:2px}#b0:checked~.b1 [for=b0]{border-color:var(--gold);background:var(--panel);font-weight:700}#b0:focus-visible~.b1 [for=b0]{outline:3px solid var(--gold);outline-offset:2px}#b1:checked~.b1 [for=b1]{border-color:var(--gold);background:var(--panel);font-weight:700}#b1:focus-visible~.b1 [for=b1]{outline:3px solid var(--gold);outline-offset:2px}#b2:checked~.b1 [for=b2]{border-color:var(--gold);background:var(--panel);font-weight:700}#b2:focus-visible~.b1 [for=b2]{outline:3px solid var(--gold);outline-offset:2px}#b3:checked~.b1 [for=b3]{border-color:var(--gold);background:var(--panel);font-weight:700}#b3:focus-visible~.b1 [for=b3]{outline:3px solid var(--gold);outline-offset:2px}#c0:checked~.b2 [for=c0]{border-color:var(--gold);background:var(--panel);font-weight:700}#c0:focus-visible~.b2 [for=c0]{outline:3px solid var(--gold);outline-offset:2px}#c1:checked~.b2 [for=c1]{border-color:var(--gold);background:var(--panel);font-weight:700}#c1:focus-visible~.b2 [for=c1]{outline:3px solid var(--gold);outline-offset:2px}#c2:checked~.b2 [for=c2]{border-color:var(--gold);background:var(--panel);font-weight:700}#c2:focus-visible~.b2 [for=c2]{outline:3px solid var(--gold);outline-offset:2px}#c3:checked~.b2 [for=c3]{border-color:var(--gold);background:var(--panel);font-weight:700}#c3:focus-visible~.b2 [for=c3]{outline:3px solid var(--gold);outline-offset:2px}#a0:checked~#b0:checked~#c0:checked~.r0,#a0:checked~#b0:checked~#c1:checked~.r0,#a0:checked~#b0:checked~#c2:checked~.r0,#a0:checked~#b0:checked~#c3:checked~.r0,#a0:checked~#b1:checked~#c0:checked~.r0,#a0:checked~#b1:checked~#c2:checked~.r0,#a0:checked~#b1:checked~#c3:checked~.r0,#a0:checked~#b2:checked~#c0:checked~.r0,#a0:checked~#b2:checked~#c1:checked~.r0,#a0:checked~#b2:checked~#c3:checked~.r0,#a0:checked~#b3:checked~#c0:checked~.r0,#a0:checked~#b3:checked~#c1:checked~.r0,#a0:checked~#b3:checked~#c2:checked~.r0,#a1:checked~#b0:checked~#c0:checked~.r0,#a2:checked~#b0:checked~#c0:checked~.r0,#a3:checked~#b0:checked~#c0:checked~.r0{display:block}#a0:checked~#b1:checked~#c1:checked~.r1,#a1:checked~#b0:checked~#c1:checked~.r1,#a1:checked~#b0:checked~#c2:checked~.r1,#a1:checked~#b0:checked~#c3:checked~.r1,#a1:checked~#b1:checked~#c0:checked~.r1,#a1:checked~#b1:checked~#c1:checked~.r1,#a1:checked~#b1:checked~#c2:checked~.r1,#a1:checked~#b1:checked~#c3:checked~.r1,#a1:checked~#b2:checked~#c0:checked~.r1,#a1:checked~#b2:checked~#c1:checked~.r1,#a1:checked~#b2:checked~#c3:checked~.r1,#a1:checked~#b3:checked~#c0:checked~.r1,#a1:checked~#b3:checked~#c1:checked~.r1,#a1:checked~#b3:checked~#c2:checked~.r1,#a2:checked~#b1:checked~#c1:checked~.r1,#a3:checked~#b1:checked~#c1:checked~.r1{display:block}#a0:checked~#b2:checked~#c2:checked~.r2,#a1:checked~#b2:checked~#c2:checked~.r2,#a2:checked~#b0:checked~#c1:checked~.r2,#a2:checked~#b0:checked~#c2:checked~.r2,#a2:checked~#b0:checked~#c3:checked~.r2,#a2:checked~#b1:checked~#c0:checked~.r2,#a2:checked~#b1:checked~#c2:checked~.r2,#a2:checked~#b1:checked~#c3:checked~.r2,#a2:checked~#b2:checked~#c0:checked~.r2,#a2:checked~#b2:checked~#c1:checked~.r2,#a2:checked~#b2:checked~#c2:checked~.r2,#a2:checked~#b2:checked~#c3:checked~.r2,#a2:checked~#b3:checked~#c0:checked~.r2,#a2:checked~#b3:checked~#c1:checked~.r2,#a2:checked~#b3:checked~#c2:checked~.r2,#a3:checked~#b2:checked~#c2:checked~.r2{display:block}#a0:checked~#b3:checked~#c3:checked~.r3,#a1:checked~#b3:checked~#c3:checked~.r3,#a2:checked~#b3:checked~#c3:checked~.r3,#a3:checked~#b0:checked~#c1:checked~.r3,#a3:checked~#b0:checked~#c2:checked~.r3,#a3:checked~#b0:checked~#c3:checked~.r3,#a3:checked~#b1:checked~#c0:checked~.r3,#a3:checked~#b1:checked~#c2:checked~.r3,#a3:checked~#b1:checked~#c3:checked~.r3,#a3:checked~#b2:checked~#c0:checked~.r3,#a3:checked~#b2:checked~#c1:checked~.r3,#a3:checked~#b2:checked~#c3:checked~.r3,#a3:checked~#b3:checked~#c0:checked~.r3,#a3:checked~#b3:checked~#c1:checked~.r3,#a3:checked~#b3:checked~#c2:checked~.r3,#a3:checked~#b3:checked~#c3:checked~.r3{display:block}.ban{display:block;width:100%;height:auto;margin:1.2rem 0 0;border:2px solid var(--line)}</style>
+</head>
+<body>
+<header class="hero">
+  <svg class="helm" viewBox="0 0 150 96" role="img" aria-label="Casco con cuernos tachado">
+    <path d="M30 70C30 42 50 28 75 28s45 14 45 42z" fill="#8f9aa3" stroke="#e8dcbd" stroke-width="3"/>
+    <path d="M30 70c-14-4-22-22-16-44 4 14 12 24 22 28zM120 70c14-4 22-22 16-44-4 14-12 24-22 28z" fill="#e8dcbd"/>
+    <path d="M70 70v-26h10v26" fill="#5c666e"/>
+    <path d="M12 90 138 8" stroke="#d9565a" stroke-width="9" stroke-linecap="round"/>
+  </svg>
+  <div class="wrap">
+    <h1 aria-label="Club Valhalla"><span>CLUB</span><span>VALHALLA</span></h1>
+    <p class="sub">El club de los vikingos: datos que no sabías</p>
+    <div class="rune" aria-hidden="true">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</div><a class="cta" href="#unete">Únete al club</a>
+    <svg class="ship" viewBox="0 0 560 230" aria-hidden="true">
+      <path d="M0 200q40-14 80 0t80 0 80 0 80 0 80 0 80 0 80 0v30H0z" fill="#0b141c" opacity=".7"/>
+      <path d="M80 160c60 34 340 34 400 0l24-52c-12 10-26 14-40 14H96c-14 0-26-4-40-14z" fill="#4a2d1a" stroke="#c39a52" stroke-width="3"/>
+      <path d="M56 108c-10-8-18-30-6-56 6 14 12 18 22 22l-6 24z" fill="#4a2d1a" stroke="#c39a52" stroke-width="3"/>
+      <rect x="276" y="22" width="8" height="96" fill="#3a2414"/>
+      <path d="M284 30h-148l22 70h126z" fill="#e8dcbd"/>
+      <path d="M170 30h30l-10 70h-30zM230 30h30l-10 70h-30z" fill="#7a1a1d"/>
+      <g fill="#7a1a1d" stroke="#e8dcbd" stroke-width="2"><circle cx="140" cy="140" r="12"/><circle cx="180" cy="145" r="12"/><circle cx="220" cy="148" r="12"/><circle cx="260" cy="150" r="12"/><circle cx="300" cy="150" r="12"/><circle cx="340" cy="148" r="12"/><circle cx="380" cy="145" r="12"/><circle cx="420" cy="140" r="12"/></g>
+    </svg>
+  </div>
+  <div class="wave" aria-hidden="true"></div>
+</header>
+
+<nav aria-label="Secciones"><div class="wrap"><a href="#ficha">Ficha</a><a href="#quiz">Test</a><a href="#vida">Vida diaria</a><a href="#mitos">Mitos</a><a href="#cultura">Cultura</a><a href="#comida">Comida</a><a href="#religion">Religión</a><a href="#datos">Datos</a><a href="#oculto">Lo oculto</a><a href="#famosos">Leyendas</a><a href="#palabras">Palabras</a><a href="#historia">Tiempo</a><a href="#unete">Únete</a></div></nav>
+<main class="wrap">
+<section id="ficha">
+  <h2>Ficha del vikingo</h2>
+  <p class="lead">Olvídate del gigante de película. Los esqueletos hallados en tumbas nórdicas cuentan otra historia.</p>
+  <div class="fig">
+    <svg viewBox="0 0 290 410" role="img" aria-label="Ilustración de un vikingo de 1,72 m con escudo y hacha">
+      <g stroke="#3a2414" stroke-width="2">
+      <rect x="100" y="228" width="28" height="125" fill="#5b4a36"/><rect x="132" y="228" width="28" height="125" fill="#5b4a36"/>
+      <rect x="96" y="350" width="34" height="30" rx="6" fill="#3a2414"/><rect x="130" y="350" width="34" height="30" rx="6" fill="#3a2414"/>
+      <rect x="70" y="104" width="24" height="100" rx="11" fill="#7a1a1d"/><rect x="166" y="104" width="24" height="100" rx="11" fill="#7a1a1d"/>
+      <rect x="92" y="98" width="76" height="140" rx="12" fill="#7a1a1d"/>
+      <rect x="92" y="188" width="76" height="13" fill="#3a2414"/><rect x="123" y="186" width="14" height="17" fill="#c39a52"/>
+      <path d="M192 120V340" stroke="#6b4a2a" stroke-width="7"/><path d="M192 126q34-6 34 22t-34 28z" fill="#8f9aa3"/>
+      <circle cx="130" cy="62" r="28" fill="#e0b48f"/>
+      <path d="M104 70q26 54 52 0q-2 40-26 46q-24-6-26-46z" fill="#8a4b1f"/>
+      <path d="M100 58a30 30 0 0 1 60 0z" fill="#8f9aa3"/><rect x="127" y="48" width="6" height="28" fill="#8f9aa3"/>
+      <circle cx="118" cy="62" r="3" fill="#1d1812"/><circle cx="142" cy="62" r="3" fill="#1d1812"/>
+      <circle cx="64" cy="190" r="44" fill="#e8dcbd" stroke="#c39a52" stroke-width="4"/>
+      </g>
+      <path d="M64 146a44 44 0 0 1 31 13L64 190zM64 234a44 44 0 0 1-31-13L64 190z" fill="#7a1a1d"/>
+      <circle cx="64" cy="190" r="10" fill="#c39a52"/>
+      <g stroke="#c39a52" stroke-width="2"><line x1="258" y1="28" x2="258" y2="380"/><line x1="250" y1="28" x2="266" y2="28"/><line x1="250" y1="380" x2="266" y2="380"/></g>
+      <text x="264" y="210" font-family="Cinzel,serif" font-weight="700" font-size="17" fill="#c39a52" transform="rotate(90 264 210)" text-anchor="middle">1,72 m</text>
+    </svg>
+    <div>
+      <table>
+        <thead><tr><th>Medida</th><th>Dato aproximado</th></tr></thead>
+        <tbody>
+          <tr><td>Estatura promedio, hombres</td><td>1,70 – 1,75 m</td></tr>
+          <tr><td>Estatura promedio, mujeres</td><td>1,57 – 1,62 m</td></tr>
+          <tr><td>Espada</td><td>≈ 90 cm</td></tr>
+          <tr><td>Escudo redondo</td><td>≈ 80 – 90 cm</td></tr>
+          <tr><td>Cota de malla</td><td>≈ 8 – 12 kg</td></tr>
+        </tbody>
+      </table>
+      <p class="hint">Son promedios estimados a partir de esqueletos; varían según la región y la época.</p>
+    </div>
+  </div>
+</section>
+
+<section id="quiz">
+  <h2>¿Qué vikingo serías?</h2>
+  <p class="lead">Tres preguntas y el club te asigna tu oficio en la Era Vikinga.</p>
+  <div class="panel" id="qz"><form class="qzf" aria-live="polite"><input type="radio" class="qi" name="q0" id="a0"><input type="radio" class="qi" name="q0" id="a1"><input type="radio" class="qi" name="q0" id="a2"><input type="radio" class="qi" name="q0" id="a3"><input type="radio" class="qi" name="q1" id="b0"><input type="radio" class="qi" name="q1" id="b1"><input type="radio" class="qi" name="q1" id="b2"><input type="radio" class="qi" name="q1" id="b3"><input type="radio" class="qi" name="q2" id="c0"><input type="radio" class="qi" name="q2" id="c1"><input type="radio" class="qi" name="q2" id="c2"><input type="radio" class="qi" name="q2" id="c3"><div class="qb b0"><h3>Ves un barco en el horizonte. ¿Qué haces?</h3><label class="opt" for="a0">Afilo mi hacha</label><label class="opt" for="a1">Preparo mercancía para negociar</label><label class="opt" for="a2">Compongo un verso sobre este momento</label><label class="opt" for="a3">Miro las estrellas y trazo la ruta</label></div><div class="qb b1"><h3>Tu sábado ideal:</h3><label class="opt" for="b0">Torneo de lucha</label><label class="opt" for="b1">Mercado con plata y telas</label><label class="opt" for="b2">Fogata y sagas</label><label class="opt" for="b3">Remar mar adentro</label></div><div class="qb b2"><h3>Tu superpoder:</h3><label class="opt" for="c0">Valentía</label><label class="opt" for="c1">Labia</label><label class="opt" for="c2">Memoria</label><label class="opt" for="c3">Orientación</label></div><div class="res r0"><h3>Eres: Guerrero</h3><p>Eres de la guardia de un jefe. Tu vida: lealtad, entrenamiento y botín. Ojo: la mayoría de los vikingos sí eran campesinos.</p></div><div class="res r1"><h3>Eres: Mercader</h3><p>Intercambias plata, ámbar, pieles y marfil de morsa. Tu red llega de Dublín a Bagdad.</p></div><div class="res r2"><h3>Eres: Escaldo</h3><p>Eres poeta de corte. Usas kennings: llamar «camino de la ballena» al mar. Tus versos eran la memoria del jefe.</p></div><div class="res r3"><h3>Eres: Navegante</h3><p>Sin brújula, lees el sol, las aves y las olas. Eres de los que llegaron a Islandia, Groenlandia y Norteamérica.</p></div><button type="reset" class="opt rst">Repetir el test</button></form></div>
+</section>
+
+<section id="vida">
+  <h2>Cómo vivían</h2>
+  <p class="lead">Más limpios, más elegantes y más campesinos de lo que crees.</p>
+  <div class="vs">
+    <div class="mito"><h3 style="color:var(--red)">Lo que imaginamos</h3>
+      <ul><li>Sucios y malolientes</li><li>Siempre peleando</li><li>Comiendo carne con las manos</li><li>Cero estilo</li></ul></div>
+    <div class="real"><h3 style="color:var(--gold)">Lo que muestra la arqueología</h3>
+      <ul><li>Peines de hueso, pinzas y navajas</li><li>Baño semanal: el sábado se llamaba «día del lavado» (laugardagr)</li><li>Granjas, pesca y comercio</li><li>Moda: tintes, trenzas y barbas cuidadas</li></ul></div>
+  </div>
+  <div class="grid g2">
+    <div class="panel"><h3>El baño</h3><p>Se lavaban con agua tibia, y en Islandia aprovechaban aguas termales. Un cronista inglés del siglo XIII se quejaba de que los daneses se peinaban todos los días y se bañaban cada semana, y que así conquistaban a las inglesas.</p></div>
+    <div class="panel"><h3>La comida</h3><p>Pescado seco, carne ahumada, queso, gachas de cebada y pan plano. Para beber: cerveza e hidromiel. En las travesías llevaban pescado seco y carne salada.</p></div>
+    <div class="panel"><h3>La ropa</h3><p>Túnicas de lana, pantalones, capas con broche y cinturón. Teñían con plantas para conseguir rojos, azules y amarillos: el vikingo gris y marrón es otro mito de película.</p></div>
+    <div class="panel"><h3>Los juegos</h3><p>Jugaban al hnefatafl, un juego de estrategia con tablero. También competían en lucha, natación y carreras de esquí y de trineo.</p></div>
+  </div>
+</section>
+
+<section id="mitos">
+  <h2>Mitos desmentidos</h2>
+  <p class="lead">No eran todos rudos ni todos andaban con casco con cuernos. Esto es lo que dicen los hallazgos.</p>
+  <svg class="ban" viewBox="0 0 800 220" role="img" aria-label="Un casco con cuernos tachado junto a un casco redondo real"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b141c"/><stop offset="1" stop-color="#2a4a5e"/></linearGradient></defs><rect width="800" height="220" fill="url(#g1)"/><path d="M140 150a60 60 0 0 1 120 0z" fill="#8f9aa3"/><path d="M140 150c-40-10-55-50-40-90 5 30 25 50 45 55zM260 150c40-10 55-50 40-90-5 30-25 50-45 55z" fill="#e8dcbd"/><path d="M110 50 290 190M290 50 110 190" stroke="#d9565a" stroke-width="12" stroke-linecap="round"/><text x="200" y="210" fill="#e8dcbd" font-family="Cinzel,serif" font-weight="700" font-size="20" text-anchor="middle">Mito</text><path d="M400 20V200" stroke="#c39a52" stroke-width="3" stroke-dasharray="8 8"/><path d="M540 150a60 60 0 0 1 120 0z" fill="#8f9aa3" stroke="#e8dcbd" stroke-width="3"/><rect x="540" y="140" width="120" height="10" fill="#5c666e"/><rect x="596" y="112" width="8" height="40" fill="#5c666e"/><g fill="none" stroke="#e8dcbd" stroke-width="4"><circle cx="580" cy="126" r="12"/><circle cx="620" cy="126" r="12"/></g><path d="M690 70l22 24 44-52" stroke="#7fbf7f" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="600" y="210" fill="#e8dcbd" font-family="Cinzel,serif" font-weight="700" font-size="20" text-anchor="middle">Realidad: casco redondo, sin cuernos</text></svg>
+  <table><thead><tr><th>Mito</th><th>Lo que sabemos</th></tr></thead><tbody><tr><td><b>Todos eran guerreros rudos</b></td><td style="text-align:left;white-space:normal">La mayoría eran granjeros, pescadores y artesanos. Las expediciones eran una actividad de temporada para algunos, no la vida de todos.</td></tr><tr><td><b>Cascos con cuernos</b></td><td style="text-align:left;white-space:normal">El único casco casi completo de la época, el de Gjermundbu (Noruega, siglo X), es redondo y sin cuernos. Muchos usaban gorros de cuero o tela, porque un casco de metal era caro.</td></tr><tr><td><b>Un pueblo salvaje y sin leyes</b></td><td style="text-align:left;white-space:normal">Tenían asambleas (Thing) y un «recitador de la ley» que memorizaba las normas y las decía en voz alta ante la gente.</td></tr><tr><td><b>Solo vivían para pelear</b></td><td style="text-align:left;white-space:normal">Valoraban la reputación, la palabra dada y la hospitalidad. Los poemas del Hávamál aconsejan tratar bien al invitado.</td></tr><tr><td><b>Eran todos iguales</b></td><td style="text-align:left;white-space:normal">Había grandes diferencias: jefes, hombres libres y esclavos. No todos podían pagar espadas o cotas de malla.</td></tr></tbody></table>
+</section>
+
+<section id="cultura">
+  <h2>Su cultura</h2>
+  <p class="lead">Familia, palabra y arte: así se organizaba su mundo.</p>
+  <svg class="ban" viewBox="0 0 800 220" role="img" aria-label="Casa larga, piedra rúnica y un broche vikingo"><defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2f3d"/><stop offset="1" stop-color="#b4733a"/></linearGradient></defs><rect width="800" height="220" fill="url(#g2)"/><rect y="170" width="800" height="50" fill="#1d2a1f"/><rect x="60" y="120" width="180" height="50" fill="#4a2d1a"/><path d="M45 125Q150 55 255 125z" fill="#3f5a2c"/><rect x="140" y="138" width="24" height="32" fill="#1d1812"/><path d="M370 170 380 70Q400 50 425 70L435 170z" fill="#8b8f94" stroke="#4a4f55" stroke-width="3"/><g fill="#1d1812" font-size="22" text-anchor="middle"><text x="405" y="102">ᚠᚢᚦ</text><text x="405" y="130">ᚨᚱᚲ</text><text x="405" y="158">ᛗᚾᛟ</text></g><g fill="none" stroke="#c39a52"><circle cx="620" cy="120" r="52" stroke-width="8"/><circle cx="620" cy="120" r="30" stroke-width="4"/><path d="M590 120q15-30 30 0 15 30 30 0-15-30-30 0-15 30-30 0z" stroke="#e8dcbd" stroke-width="4"/></g></svg>
+  <div class="grid g3">
+    <div class="panel"><h3>Familia y honor</h3><p>La familia extensa era la base de la sociedad. Defender el honor era obligación, pero las disputas también se resolvían pagando compensaciones.</p></div>
+    <div class="panel"><h3>Nombres con historia</h3><p>Usaban patronímicos: Eriksson era «hijo de Erik» y Eiríksdóttir, «hija de Erik». Muchos tenían apodos, como Erik el Rojo o Harald Dientes Azules.</p></div>
+    <div class="panel"><h3>Sagas y poesía</h3><p>Transmitían historias de forma oral. Las sagas islandesas se escribieron en el siglo XIII y son la fuente principal sobre su mundo.</p></div>
+    <div class="panel"><h3>Arte y joyas</h3><p>Tallaban madera y metal con animales entrelazados y nudos. Llevaban broches, anillos de plata y colgantes en forma de martillo.</p></div>
+    <div class="panel"><h3>Yule, la fiesta de invierno</h3><p>Celebraban Jól a mitad del invierno con banquetes y brindis. La palabra Yule sigue usándose en inglés para la Navidad.</p></div>
+    <div class="panel"><h3>Navegar era identidad</h3><p>Sus barcos, ligeros y de poco calado, entraban en ríos y llegaban a playas. Muchos jefes eran enterrados en ellos.</p></div>
+  </div>
+</section>
+
+<section id="comida">
+  <h2>Su gastronomía</h2>
+  <p class="lead">Una cocina de granja, mar e invierno largo, hecha para conservar.</p>
+  <svg class="ban" viewBox="0 0 800 220" role="img" aria-label="Mesa con pan, queso, pescado, un cuerno de hidromiel y bayas"><defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1a10"/><stop offset="1" stop-color="#4a2d1a"/></linearGradient></defs><rect width="800" height="220" fill="url(#g3)"/><rect y="150" width="800" height="70" fill="#6b4a2a"/><path d="M0 150H800" stroke="#3a2414" stroke-width="4"/><ellipse cx="150" cy="132" rx="60" ry="28" fill="#c98f4a" stroke="#8a5a24" stroke-width="3"/><path d="M120 112l14 40M150 108v44M180 112l-14 40" stroke="#8a5a24" stroke-width="3"/><path d="M250 150h100v-42z" fill="#e8c25a" stroke="#b8932f" stroke-width="3"/><g fill="#b8932f"><circle cx="320" cy="140" r="5"/><circle cx="296" cy="146" r="4"/></g><ellipse cx="460" cy="128" rx="52" ry="20" fill="#9fb4c2"/><path d="M508 128l30-20v40z" fill="#9fb4c2"/><circle cx="436" cy="124" r="4" fill="#1d1812"/><path d="M590 90q10 60 60 60 40 0 60-70-10 20-50 25-40 5-70-15z" fill="#e8dcbd" stroke="#8a7a5a" stroke-width="3"/><path d="M590 90c30 18 60 14 120-10" stroke="#e8c25a" stroke-width="6" fill="none"/><path d="M730 130h60q-5 22-30 22-25 0-30-22z" fill="#3a2414"/><g fill="#c0392b"><circle cx="748" cy="124" r="10"/><circle cx="768" cy="122" r="10"/><circle cx="758" cy="108" r="10"/></g></svg>
+  <div class="grid g3">
+    <div class="panel"><h3>Pan y cereales</h3><p>Cebada, avena y centeno. Comían gachas y panes planos cocidos en piedra o en el fuego.</p></div>
+    <div class="panel"><h3>Del mar a la mesa</h3><p>Arenque, bacalao y salmón, frescos o secos al aire. El pescado seco aguantaba meses y viajaba en los barcos.</p></div>
+    <div class="panel"><h3>Carne y caza</h3><p>Cerdo, cordero, vaca y caza como ciervo o aves. Cocinaban en grandes calderos o asaban al fuego.</p></div>
+    <div class="panel"><h3>Lácteos</h3><p>Queso, mantequilla y leche agria. El skyr, parecido a un yogur espeso, se sigue comiendo en Islandia.</p></div>
+    <div class="panel"><h3>Conservar para el invierno</h3><p>Secaban, salaban, ahumaban y fermentaban los alimentos para sobrevivir meses de frío.</p></div>
+    <div class="panel"><h3>Para brindar</h3><p>Cerveza e hidromiel, hecha con miel. Se bebía en cuernos y copas durante los banquetes, con brindis y promesas.</p></div>
+  </div>
+  <div class="panel real" style="margin-top:1.2rem"><h3>Menú de un banquete vikingo</h3><p>Cordero asado, pan de cebada, queso, bayas con miel, y hidromiel para brindar, todo en una casa larga a la luz del fuego.</p></div>
+</section>
+
+<section id="religion">
+  <h2>Su religión</h2>
+  <p class="lead">Creían en muchos dioses, en la magia y en un destino que nadie podía evitar.</p>
+  <svg class="ban" viewBox="0 0 800 220" role="img" aria-label="Thor con su martillo Mjölnir bajo una tormenta"><defs><linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b141c"/><stop offset="1" stop-color="#2a3a4a"/></linearGradient></defs><rect width="800" height="220" fill="url(#g4)"/><g fill="#3a4a5a"><ellipse cx="150" cy="30" rx="120" ry="28"/><ellipse cx="400" cy="14" rx="150" ry="26"/><ellipse cx="660" cy="30" rx="130" ry="28"/></g><path d="M150 40l-24 56h26l-20 62 52-76h-28l26-42z" fill="#f3e4b8"/><path d="M650 40l-24 56h26l-20 62 52-76h-28l26-42z" fill="#f3e4b8"/><g stroke="#3a2414" stroke-width="2"><path d="M338 205 360 100H440l22 105z" fill="#7a1a1d"/><rect x="372" y="168" width="24" height="42" fill="#5b4a36"/><rect x="404" y="168" width="24" height="42" fill="#5b4a36"/><rect x="365" y="100" width="70" height="72" rx="8" fill="#5c4a36"/><rect x="365" y="150" width="70" height="10" fill="#3a2414"/><rect x="392" y="148" width="16" height="14" fill="#c39a52"/><path d="M365 112 342 162" stroke="#e0b48f" stroke-width="14" stroke-linecap="round"/><path d="M435 110 470 62" stroke="#e0b48f" stroke-width="14" stroke-linecap="round"/><circle cx="400" cy="72" r="22" fill="#e0b48f"/><path d="M376 72q24-44 48 0v10H376z" fill="#c9843a"/><path d="M380 80q20 44 40 0z" fill="#c9843a"/><g transform="rotate(30 480 52)"><rect x="476" y="28" width="8" height="64" fill="#6b4a2a"/><rect x="452" y="12" width="56" height="30" fill="#8f9aa3" stroke="#e8dcbd" stroke-width="3"/></g></g><circle cx="394" cy="70" r="2.5" fill="#1d1812"/><circle cx="406" cy="70" r="2.5" fill="#1d1812"/><text x="150" y="205" fill="#e8dcbd" font-family="Cinzel,serif" font-weight="700" font-size="18" text-anchor="middle">Thor, dios del trueno</text><text x="650" y="205" fill="#e8dcbd" font-family="Cinzel,serif" font-weight="700" font-size="18" text-anchor="middle">Mjölnir: el martillo protector</text></svg>
+  <div class="grid g3">
+    <div class="panel"><h3>Odín</h3><p>Dios de la sabiduría, la poesía y la guerra. Sus dos cuervos, Hugin y Munin, le contaban lo que pasaba en el mundo.</p></div>
+    <div class="panel"><h3>Thor</h3><p>Dios del trueno. Su martillo Mjölnir protegía a la gente, y los campesinos lo querían mucho.</p></div>
+    <div class="panel"><h3>Freyja</h3><p>Diosa del amor, la fertilidad y la magia. Se llevaba a la mitad de los guerreros caídos a su sala.</p></div>
+    <div class="panel"><h3>Freyr</h3><p>Dios de la cosecha y la paz. Se le pedía buen tiempo y buenas cosechas.</p></div>
+    <div class="panel"><h3>Tyr</h3><p>Dios de la justicia. Puso su mano en la boca del lobo Fenrir como garantía y la perdió.</p></div>
+    <div class="panel"><h3>Loki</h3><p>El embaucador. A veces ayuda a los dioses y a veces los mete en problemas.</p></div>
+  </div>
+  <div class="grid g2">
+    <div class="panel"><h3>Un mundo con nueve reinos</h3><p>El árbol Yggdrasil sostenía nueve mundos, entre ellos Asgard (los dioses), Midgard (los humanos) y Hel (los muertos).</p></div>
+    <div class="panel"><h3>Blót: la fiesta ritual</h3><p>Era un ritual con ofrendas y banquete compartido, que se hacía en granjas y lugares sagrados. En Uppsala (Suecia) existió un gran templo, según un cronista del siglo XI.</p></div>
+    <div class="panel"><h3>Amuletos</h3><p>Muchos llevaban colgantes con forma del martillo de Thor para protegerse. Se han hallado cientos.</p></div>
+    <div class="panel"><h3>Del martillo a la cruz</h3><p>Con el tiempo se hicieron cristianos: Islandia aceptó la nueva religión en el año 1000. Un molde hallado en Dinamarca servía para fabricar cruces y martillos de Thor.</p></div>
+  </div>
+</section>
+
+<section id="datos">
+  <h2>Datos locos</h2>
+  <p class="lead">Toca cada tarjeta para descubrir el secreto.</p>
+  <svg class="ban" viewBox="0 0 800 220" role="img" aria-label="Un cráneo tachado y un cuerno para beber"><defs><linearGradient id="g5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1a10"/><stop offset="1" stop-color="#4a2d1a"/></linearGradient></defs><rect width="800" height="220" fill="url(#g5)"/><rect y="185" width="800" height="35" fill="#6b4a2a"/><circle cx="240" cy="100" r="50" fill="#e8dcbd" stroke="#8a7a5a" stroke-width="3"/><rect x="214" y="135" width="52" height="32" rx="8" fill="#e8dcbd" stroke="#8a7a5a" stroke-width="3"/><g fill="#1d1812"><circle cx="220" cy="100" r="13"/><circle cx="260" cy="100" r="13"/><path d="M240 112l-7 16h14z"/></g><path d="M222 150v16M232 150v16M242 150v16M252 150v16M262 150v16" stroke="#8a7a5a" stroke-width="2"/><path d="M110 40 370 180M370 40 110 180" stroke="#d9565a" stroke-width="10" stroke-linecap="round" opacity=".9"/><text x="240" y="210" fill="#f3e4b8" font-family="Cinzel,serif" font-weight="700" font-size="18" text-anchor="middle">Mito: beber en cráneos</text><path d="M400 20V200" stroke="#c39a52" stroke-width="3" stroke-dasharray="8 8"/><path d="M500 80q10 70 70 70 50 0 70-80-10 22-60 28-50 6-80-18z" fill="#e8dcbd" stroke="#8a7a5a" stroke-width="3"/><path d="M500 80c40 20 80 14 140-10" stroke="#e8c25a" stroke-width="7" fill="none"/><path d="M590 168q4 8 0 14M610 164q4 8 0 14" stroke="#e8c25a" stroke-width="4" fill="none"/><text x="580" y="210" fill="#f3e4b8" font-family="Cinzel,serif" font-weight="700" font-size="18" text-anchor="middle">Realidad: cuernos para beber</text></svg>
+  <div class="grid g3" id="cards">
+    <button class="card" aria-pressed="false"><span class="t">Beber de cráneos</span><span class="front">¿Brindaban con la calavera del enemigo?</span><span class="back">Es un mito. Salió de una mala traducción de un poema, donde «ramas curvas del cráneo» eran en realidad cuernos para beber.</span></button>
+    <button class="card" aria-pressed="false"><span class="t">Dientes con surcos</span><span class="front">Algunos se hacían algo raro en la boca.</span><span class="back">En esqueletos de Suecia y Dinamarca se han hallado dientes con surcos horizontales, hechos a propósito. No se sabe con certeza su significado: quizá estatus o identidad.</span></button>
+    <button class="card" aria-pressed="false"><span class="t">Días de la semana</span><span class="front">Los dioses siguen en tu calendario.</span><span class="back">En inglés, Wednesday viene de Odín (Woden) y Thursday, de Thor. También Friday, de la diosa Frigg o Freya.</span></button>
+    <button class="card" aria-pressed="false"><span class="t">Espadas Ulfberht</span><span class="front">Las mejores armas de su época.</span><span class="back">Unas 170 espadas llevan la inscripción +VLFBERH+T. Su acero de gran calidad es tan raro para el año 900 que se cree que lo importaban de Asia Central.</span></button>
+    <button class="card" aria-pressed="false"><span class="t">Berserkers</span><span class="front">¿Guerreros en trance?</span><span class="back">Las sagas hablan de guerreros que peleaban con furia, vestidos con piel de oso. Los historiadores discuten cuánto hay de verdad y cuánto de leyenda.</span></button>
+    <button class="card" aria-pressed="false"><span class="t">¿Piedra solar?</span><span class="front">Navegaban sin brújula.</span><span class="back">Se guiaban por el sol, las estrellas, las aves y las olas. Una hipótesis dice que usaban cristales de calcita para hallar el sol en días nublados; sigue en debate.</span></button>
+    <button class="card" aria-pressed="false"><span class="t">Esquís y patines</span><span class="front">¿Deportes de invierno?</span><span class="back">Esquiaban para cazar y viajar, y hasta tenían un dios del esquí: Ull. En York han aparecido patines hechos con huesos de animal.</span></button>
+    <button class="card" aria-pressed="false"><span class="t">Graffiti en Santa Sofía</span><span class="front">Los vikingos en Constantinopla.</span><span class="back">En la basílica de Santa Sofía hay runas grabadas en una baranda de piedra: una dice que un tal Halfdan las talló. Posiblemente, un guardia varego.</span></button>
+    <button class="card" aria-pressed="false"><span class="t">Monedas árabes</span><span class="front">¿Comerciaban con Bagdad?</span><span class="back">Se han hallado decenas de miles de monedas de plata árabes (dírhams) en Escandinavia, sobre todo en Gotland. Llegaban por los ríos de Rusia.</span></button>
+    <button class="card" aria-pressed="false"><span class="t">Rubios… ¿o no?</span><span class="front">¿Todos eran rubios?</span><span class="back">Un estudio de ADN de 2020 en Nature (442 esqueletos) mostró una población muy mixta: muchos con ancestros de Escocia, Irlanda y sur de Europa, y no todos rubios. Se cree que además usaban jabón de lejía para aclararse el pelo.</span></button>
+    <button class="card" aria-pressed="false"><span class="t">Funeral en barco</span><span class="front">Despedida de jefe.</span><span class="back">En 922, el viajero árabe Ibn Fadlán describió el funeral de un jefe de los rus en un barco, con una ceremonia larga. Es de los pocos relatos de testigos.</span></button>
+    <button class="card" aria-pressed="false"><span class="t">Los palos de runas</span><span class="front">La escritura, en todo.</span><span class="back">Grababan runas en piedra, hueso, madera y metal: nombres, propiedad, recuerdos de muertos y mensajes. Las piedras rúnicas de Suecia suelen honrar a un familiar fallecido.</span></button>
+  </div>
+</section>
+
+<section id="oculto">
+  <h2>Lo que nadie te cuenta</h2>
+  <p class="lead">La parte menos de película: religión, leyes y los lados oscuros de su sociedad.</p>
+  <svg class="ban" viewBox="0 0 800 220" role="img" aria-label="Siluetas de cautivos encadenados y una balanza con plata"><defs><linearGradient id="g6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2f3d"/><stop offset="1" stop-color="#6b4a2a"/></linearGradient></defs><rect width="800" height="220" fill="url(#g6)"/><rect y="190" width="800" height="30" fill="#2a1d12"/><g fill="#15100c"><circle cx="200" cy="90" r="20"/><path d="M172 192q-8-72 28-82 36 10 28 82z"/><circle cx="330" cy="100" r="18"/><path d="M305 192q-6-66 25-74 31 8 25 74z"/></g><ellipse cx="200" cy="112" rx="16" ry="5" fill="none" stroke="#8f9aa3" stroke-width="4"/><ellipse cx="330" cy="120" rx="14" ry="5" fill="none" stroke="#8f9aa3" stroke-width="4"/><path d="M216 114Q265 140 316 122" stroke="#8f9aa3" stroke-width="4" stroke-dasharray="10 6" fill="none"/><rect x="590" y="62" width="8" height="130" fill="#3a2414"/><path d="M530 70H656" stroke="#c39a52" stroke-width="5"/><path d="M536 70 516 112M536 70 556 112M650 70 630 112M650 70 670 112" stroke="#c39a52" stroke-width="2"/><ellipse cx="536" cy="114" rx="32" ry="8" fill="#c39a52"/><ellipse cx="650" cy="114" rx="32" ry="8" fill="#c39a52"/><g fill="#c0c8d0" stroke="#8f9aa3"><circle cx="522" cy="106" r="8"/><circle cx="540" cy="104" r="8"/><circle cx="556" cy="108" r="8"/></g><text x="400" y="212" fill="#e8dcbd" font-family="Cinzel,serif" font-weight="700" font-size="17" text-anchor="middle">Los thralls: cautivos vendidos y usados como esclavos</text></svg>
+  <div class="grid g2">
+    <div class="panel"><h3>Odín: un ojo por sabiduría</h3><p>Según los mitos, el dios principal entregó un ojo a cambio de conocimiento y se colgó nueve noches del árbol Yggdrasil para descubrir las runas.</p></div>
+    <div class="panel"><h3>Valhalla no era para todos</h3><p>Solo la mitad de los caídos en batalla iba con Odín al Valhalla. La otra mitad iba con la diosa Freyja a su sala Fólkvangr. Al final, el Ragnarök destruía y renovaba el mundo.</p></div>
+    <div class="panel"><h3>Fuera de la ley</h3><p>Los conflictos se arreglaban con compensaciones en plata, pero el castigo más duro era el destierro: quien lo recibía perdía toda protección y lo llamaban «lobo».</p></div>
+    <div class="panel"><h3>La esclavitud</h3><p>Los vikingos tomaban cautivos en sus incursiones y los usaban como esclavos (thralls) o los vendían en mercados como el de Dublín. Es una parte real, y poco atractiva, de su economía.</p></div>
+    <div class="panel"><h3>Mujeres con poder y tumbas famosas</h3><p>En 2017, el ADN de una tumba de Birka (Suecia) con armas reveló que era una mujer. Los expertos aún debaten si era una guerrera o una jefa de alto rango.</p></div>
+    <div class="panel"><h3>Casas largas</h3><p>Familias, trabajadores y animales compartían casas largas con techo de turba, un fuego central y humo. No había ventanas de vidrio.</p></div>
+  </div>
+</section>
+
+<section id="famosos">
+  <h2>Leyendas del club</h2>
+  <div class="grid g3">
+    <div class="panel"><h3>Harald Dientes Azules</h3><p>Rey de Dinamarca (siglo X). El logo del Bluetooth une sus iniciales en runas: ᚼ y ᛒ.</p></div>
+    <div class="panel"><h3>Erik el Rojo</h3><p>Desterrado de Noruega e Islandia por homicidio. Hacia 985 fundó los asentamientos de Groenlandia.</p></div>
+    <div class="panel"><h3>Freydís Eiríksdóttir</h3><p>Hija de Erik. En las sagas, ahuyentó a un grupo enemigo en Vinland golpeándose el pecho con una espada.</p></div>
+    <div class="panel"><h3>Gudrid</h3><p>Exploradora islandesa. Según las sagas viajó a Vinland, tuvo un hijo allí y luego peregrinó hasta Roma.</p></div>
+    <div class="panel"><h3>Harald Hardrada</h3><p>Sirvió en la Guardia Varega de Constantinopla y murió en 1066 en Stamford Bridge.</p></div>
+    <div class="panel"><h3>Ivar el Deshuesado</h3><p>Líder del Gran Ejército Pagano que invadió Inglaterra en 865. Nadie sabe seguro por qué se llamaba así.</p></div>
+  </div>
+</section>
+
+<section id="palabras">
+  <h2>Palabras vikingas que usas</h2>
+  <p class="lead">El nórdico antiguo sigue vivo en el inglés. Si estudias idiomas, esto te va a gustar.</p>
+  <table>
+    <thead><tr><th>Inglés</th><th>Nórdico antiguo</th></tr></thead>
+    <tbody>
+      <tr><td>window (ventana)</td><td>vindauga, «ojo del viento»</td></tr>
+      <tr><td>knife (cuchillo)</td><td>knífr</td></tr>
+      <tr><td>sky (cielo)</td><td>ský, «nube»</td></tr>
+      <tr><td>husband (esposo)</td><td>húsbóndi, «dueño de la casa»</td></tr>
+      <tr><td>law (ley)</td><td>lög</td></tr>
+      <tr><td>berserk (enloquecido)</td><td>berserkr, «camisa de oso»</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="historia">
+  <h2>Línea del tiempo</h2>
+  <ol class="tl">
+    <li><b>793</b>Ataque al monasterio de Lindisfarne (Inglaterra): se suele tomar como inicio de la Era Vikinga.</li>
+    <li><b>844</b>Incursiones vikingas llegan a Sevilla, en la península ibérica.</li>
+    <li><b>c. 874</b>Comienza el asentamiento nórdico de Islandia.</li>
+    <li><b>911</b>Rollón recibe tierras en el norte de Francia: nace Normandía.</li>
+    <li><b>930</b>Se funda el Althing, la asamblea de Islandia.</li>
+    <li><b>c. 985</b>Erik el Rojo funda asentamientos en Groenlandia.</li>
+    <li><b>c. 1000</b>Leif Erikson llega a Norteamérica; L’Anse aux Meadows, en Terranova, lo confirma arqueológicamente.</li>
+    <li><b>1066</b>Batalla de Stamford Bridge: se suele fijar aquí el final de la Era Vikinga.</li>
+  </ol>
+</section>
+
+<section id="unete">
+  <h2>¿Quieres saber más? Únete a nuestro club</h2>
+  <p class="lead">Regístrate, recibe tu carnet de miembro con tu nombre escrito en runas y aparece en el muro del club.</p>
+  <div class="grid g2">
+    <div class="panel">
+      <form id="jf" autocomplete="off">
+        <label for="jn">Tu nombre o apodo vikingo</label>
+        <input class="inp" id="jn" maxlength="24" required placeholder="Ej: Diego el Valiente">
+        <label for="jo">Tu oficio</label>
+        <select class="inp" id="jo"><option>Guerrero</option><option>Mercader</option><option>Escaldo</option><option>Navegante</option><option>Aún no lo sé</option></select>
+        <button class="cta" type="submit" style="margin-top:0">Unirme al club</button>
+        <p class="hint" id="js" role="status">Tu nombre se mostrará en el muro del club. No pedimos correo ni datos personales.</p>
+      </form>
+    </div>
+    <div>
+      <div class="id" id="jid"><div>Carnet del Club Valhalla</div><div class="r" id="jr">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</div><div class="n" id="jname">Tu nombre aquí</div><div id="jrole">Completa el registro para recibirlo</div></div>
+      <p style="margin-bottom:0"><b id="jc">15</b> <span id="jcl">miembros en el muro</span></p>
+      <div class="wall" id="jw"></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <h2>Ya eres miembro del club</h2>
+  <p>La historia real es mucho más fascinante que la ficción.<br>Cuéntale a un amigo uno de estos datos hoy y suma un miembro al club.</p>
+  <small>Club Valhalla: datos históricos aproximados, con base en hallazgos arqueológicos y sagas medievales.</small>
+</footer>
+<button class="theme" id="th" type="button">Claro / Oscuro</button>
+<script>
+document.querySelectorAll('.card').forEach(function(c){c.addEventListener('click',function(){c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')==='true'?'false':'true')})});
+document.getElementById('th').addEventListener('click',function(){var r=document.documentElement,d=r.getAttribute('data-theme');var dark=d?d==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.setAttribute('data-theme',dark?'light':'dark')});
+
+
+
+(function(){var M={a:'ᚨ',b:'ᛒ',c:'ᚲ',d:'ᛞ',e:'ᛖ',f:'ᚠ',g:'ᚷ',h:'ᚺ',i:'ᛁ',j:'ᛃ',k:'ᚲ',l:'ᛚ',m:'ᛗ',n:'ᚾ',o:'ᛟ',p:'ᛈ',q:'ᚲ',r:'ᚱ',s:'ᛊ',t:'ᛏ',u:'ᚢ',v:'ᚹ',w:'ᚹ',x:'ᚲᛊ',y:'ᛁ',z:'ᛉ'};
+var SEED=[["Ragnar el Veloz","Guerrero"],["Astrid Ojo de Lobo","Navegante"],["Bjorn Puño de Hierro","Guerrero"],["Freya la Valiente","Escaldo"],["Ulf el Navegante","Navegante"],["Sigrid Mano de Plata","Mercader"],["Leif el Explorador","Navegante"],["Ingrid la Escaldo","Escaldo"],["Thorin Barba de Fuego","Guerrero"],["Helga Viento Norte","Mercader"],["Erik el Curioso","Aún no lo sé"],["Gunnar Trueno","Guerrero"],["Runa la Sabia","Escaldo"],["Olaf el Fuerte","Mercader"],["Brynja Escudo Azul","Aún no lo sé"]];
+function $(i){return document.getElementById(i)}
+function runes(t){return t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().split('').map(function(c){return c===' '?' ':(M[c]||'')}).join('')}
+var db=null,uid=null,mine=null,st=$('js'),NUM=SEED.length+1;
+function card(n,o,num){$('jname').textContent=n;$('jr').textContent=runes(n)||'ᚠ ᚢ ᚦ';$('jrole').textContent=(o==='Aún no lo sé'?'Aprendiz':o)+' del club'+(num?' · miembro n.º '+num:'')}
+function wall(l){$('jc').textContent=l.length;$('jcl').textContent=l.length===1?'miembro en el muro':'miembros en el muro';var w=$('jw');w.textContent='';l.slice(0,12).forEach(function(x){var n=String(x[0]||'').slice(0,24);if(!n)return;var sp=document.createElement('span');sp.textContent=n;w.appendChild(sp)})}
+function local(){var l=SEED.slice().reverse();if(mine)l.unshift([mine.n,mine.o]);return l}
+try{mine=JSON.parse(localStorage.getItem('valhalla')||'null');if(mine&&mine.n)card(mine.n,mine.o,NUM);else mine=null}catch(e){mine=null}
+wall(local());
+$('jf').addEventListener('submit',function(e){e.preventDefault();var n=$('jn').value.trim().slice(0,24),o=$('jo').value;if(!n)return;
+mine={n:n,o:o};try{localStorage.setItem('valhalla',JSON.stringify(mine))}catch(x){}
+function offline(msg){card(n,o,NUM);wall(local());st.textContent=msg||'¡Bienvenido al club, '+n+'! Eres el miembro n.º '+NUM+'.'}
+if(db&&uid){st.textContent='Guardando…';db.doc('miembros/'+uid).set({nombre:n,oficio:o,ts:Date.now()}).then(function(){st.textContent='¡Bienvenido al club, '+n+'!'}).catch(function(){offline()})}
+else offline()});
+async function init(){try{if(!window.claude||!claude.use)return;var u=await claude.use('user'),d=await claude.use('db');if(!u||!d)return;uid=await u.id();if(!uid)return;db=d;
+d.collection('miembros').orderBy('ts','desc').onSnapshot(function(q){if(!q.size)return;wall(q.docs.map(function(x){var v=x.data()||{};return[v.nombre,v.oficio]}));q.docs.forEach(function(x,i){if(x.id===uid){var v=x.data()||{};card(String(v.nombre||'').slice(0,24),String(v.oficio||''),q.size-i)}})},function(){})}catch(e){}}
+init()})();
+</script>
+</body>
+</html>
